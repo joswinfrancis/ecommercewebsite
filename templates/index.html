@@ -28,30 +28,30 @@
          <header class="header_section">
             <div class="container">
                <nav class="navbar navbar-expand-lg custom_nav-container ">
-                  <a class="navbar-brand" href="index.html"><img width="250" src="{% static 'images/logo.png' %}" alt="#" /></a>
+                  <a class="navbar-brand" href="{% url 'index' %}"><img width="250" src="{% static 'images/logo.png' %}" alt="#" /></a>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class=""> </span>
                   </button>
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                      <ul class="navbar-nav">
                         <li class="nav-item active">
-                           <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                           <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
                         </li>
-                       <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Pages <span class="caret"></span></a>
                            <ul class="dropdown-menu">
-                              <li><a href="about.html">About</a></li>
-                              <li><a href="testimonial.html">Testimonial</a></li>
+                              <li><a href="{% url 'about' %}">About</a></li>
+                              <li><a href="{% url 'testimonials' %}">Testimonial</a></li>
                            </ul>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="product.html">Products</a>
+                           <a class="nav-link" href="{% url 'products' %}">Products</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="blog_list.html">Blog</a>
+                           <a class="nav-link" href="{% url 'blog_list' %}">Blog</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="contact.html">Contact</a>
+                           <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                         </li>
                         <li class="nav-item">
                            <a class="nav-link" href="#">
@@ -143,7 +143,7 @@
                                     Explicabo esse amet tempora quibusdam laudantium, laborum eaque magnam fugiat hic? Esse dicta aliquid error repudiandae earum suscipit fugiat molestias, veniam, vel architecto veritatis delectus repellat modi impedit sequi.
                                  </p>
                                  <div class="btn-box">
-                                    <a href="" class="btn1">
+                                    <a href="{% url 'products' %}" class="btn1">
                                     Shop Now
                                     </a>
                                  </div>
@@ -996,12 +996,12 @@
          </div>
       </footer>
       <!-- jQery -->
-      <script src="js/jquery-3.4.1.min.js"></script>
+      <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
       <!-- popper js -->
-      <script src="js/popper.min.js"></script>
+      <script src="{% static 'js/popper.min.js' %}"></script>
       <!-- bootstrap js -->
-      <script src="js/bootstrap.js"></script>
+      <script src="{% static 'js/bootstrap.js' %}"></script>
       <!-- custom js -->
-      <script src="js/custom.js"></script>
+      <script src="{% static 'js/custom.js' %}"></script>
    </body>
 </html>
