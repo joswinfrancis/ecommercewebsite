@@ -1,20 +1,24 @@
 from django.db import models
+from category.models import Category
+from django.urls import reverse
 
 # Create your models here.
 #model for product
 class Product(models.Model):
-    LIVE=1
-    DELETE=0
-    DELETE_CHOICES=((LIVE,'live'),(DELETE,"delete")) 
-    title=models.CharField(max_length=200)
-    price=models.FloatField()
-    description=models.TextField()
-    image=models.ImageField(upload_to='media/')
-    priority=models.IntegerField(default=0)
-    delete_status=models.IntegerField(choices=DELETE_CHOICES,default=LIVE)
-    created_at=models.DateTimeField(auto_now_add=True)
-    updated_at=models.DateTimeField(auto_now=True)
+    product_name=models.CharField(max_length=200 ,unique=True)
+    slug = models.SlugField(max_length=200 ,unique=True)
+    description=models.TextField(max_length=500 , blank=True)
+    price=models.IntegerField()
+    images=models.ImageField(upload_to='media/')
+    stock=models.IntegerField()
+    is_available=models.BooleanField(default=True)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE)
+    created_date=models.DateTimeField(auto_now_add=True)
+    modified_date=models.DateTimeField(auto_now=True)
+
+    def get_url(self):
+        return reverse('product_details', args=[self.category.slug ,self.slug])
 
 
-    def __str__(self)  -> str:
-        return self.title
+    def __str__(self):
+        return self.product_name
