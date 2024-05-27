@@ -12,7 +12,7 @@
       <meta name="description" content="" />
       <meta name="author" content="" />
       <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="">
-      <title>Famms - Fashion HTML Template</title>
+      <title>Jo Kart</title>
       <!-- bootstrap core css -->
       <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
       <!-- font awesome style -->
@@ -202,7 +202,7 @@
                {% if single_product.stock <= 0 %}
                <h4 class="text-danger"> Out Of Stock</h4>
                {% else %}
-               <a href="./product-detail.html" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i> </a>
+               <a href="{% url 'add_cart' single_product.id %}" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i> </a>
                {% endif %}
             </div>
         </div>
@@ -210,37 +210,92 @@
   </section>  
     <!-- ***** product_details Ends ***** -->
     
-    <!-- ***** Footer Start ***** -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>
-                        Copyright © 2020 Company Name
-                        - Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
-                    </p>
-                </div>
+    <!-- footer section -->
+    <footer class="footer_section">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-4 footer-col">
+               <div class="footer_contact">
+                  <h4>
+                     Reach at..
+                  </h4>
+                  <div class="contact_link_box">
+                     <a href="">
+                     <i class="fa fa-map-marker" aria-hidden="true"></i>
+                     <span>
+                     Calicut
+                     </span>
+                     </a>
+                     <a href="">
+                     <i class="fa fa-phone" aria-hidden="true"></i>
+                     <span>
+                     Call +91 8943197285
+                     </span>
+                     </a>
+                     <a href="">
+                     <i class="fa fa-envelope" aria-hidden="true"></i>
+                     <span>
+                     joswinfrancis2001@gmail.com
+                     </span>
+                     </a>
+                  </div>
+               </div>
             </div>
-        </div>
-    </footer>
-
-    <!-- jQuery -->
-    <script src="{% static 'js/jquery-2.1.0.min.js' %}"></script>
-
-    <!-- Bootstrap -->
-    <script src="{% static 'js/popper.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-
-    <!-- Plugins -->
-    <script src="{% static 'js/scrollreveal.min.js' %}"></script>
-    <script src="{% static 'js/waypoints.min.js' %}"></script>
-    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
-    <script src="{% static 'js/imgfix.min.js' %}"></script> 
-    <script src="{% static 'js/mixitup.js' %}"></script> 
-    <script src="{% static 'js/accordions.js' %}"></script>
-    
-    <!-- Global Init -->
-    <script src="{% static 'js/custom.js' %}"></script>
-
-  </body>
+            <div class="col-md-4 footer-col">
+               <div class="footer_detail">
+                  <a href="{% url 'index' %}" class="footer-logo">
+                  Jo Kart
+                  </a>
+                  <p>
+                     Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
+                  </p>
+                  <div class="footer_social">
+                     <a href="">
+                     <i class="fa fa-facebook" aria-hidden="true"></i>
+                     </a>
+                     <a href="">
+                     <i class="fa fa-twitter" aria-hidden="true"></i>
+                     </a>
+                     <a href="">
+                     <i class="fa fa-linkedin" aria-hidden="true"></i>
+                     </a>
+                     <a href="">
+                     <i class="fa fa-instagram" aria-hidden="true"></i>
+                     </a>
+                     <a href="">
+                     <i class="fa fa-pinterest" aria-hidden="true"></i>
+                     </a>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-4 footer-col">
+               <div class="map_container">
+                  <div class="map">
+                     <div id="googleMap"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="footer-info">
+            <div class="col-lg-7 mx-auto px-0">
+               <p>
+                  &copy; <span id="displayYear"></span> All Rights Reserved By
+                  <a href="#">Joswin Francis</a><br>
+      
+                  
+               </p>
+            </div>
+         </div>
+      </div>
+   </footer>
+   <!-- footer section -->
+   <!-- jQery -->
+   <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+   <!-- popper js -->
+   <script src="{% static 'js/popper.min.js' %}"></script>
+   <!-- bootstrap js -->
+   <script src="{% static 'js/bootstrap.js' %}"></script>
+   <!-- custom js -->
+   <script src="{% static 'js/custom.js' %}"></script>
+</body>
 </html>
