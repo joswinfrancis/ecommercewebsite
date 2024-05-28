@@ -38,13 +38,6 @@
                            <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item dropdown">
-                           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Pages <span class="caret"></span></a>
-                           <ul class="dropdown-menu">
-                              <li><a href="{% url 'about' %}">About</a></li>
-                              <li><a href="{% url 'testimonials' %}">Testimonial</a></li>
-                           </ul>
-                        </li>
-                        <li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Categories <span class="caret"></span></a>
                            <ul class="dropdown-menu">
                               <li><a href="{% url 'products' %}">All Products</a></li>
@@ -57,13 +50,7 @@
                            <a class="nav-link" href="{% url 'products' %}">Products</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="{% url 'blog_list' %}">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="{% url 'contact' %}">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                           <a class="nav-link" href="#">
+                           <a class="nav-link" href="{% url 'cart' %}">
                               <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                  <g>
                                     <g>
@@ -118,11 +105,13 @@
                               </svg>
                            </a>
                         </li>
-                        <form class="form-inline">
-                           <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
-                           <i class="fa fa-search" aria-hidden="true"></i>
+                        
+                        <form class="form-inline" method="GET" action="{% url 'search_product' %}">
+                           <input type="text" name="search" placeholder="search" class="form-control">
+                           <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
+                               <i class="fa fa-search" aria-hidden="true"></i>
                            </button>
-                        </form>
+                        </form>                       
                      </ul>
                   </div>
                </nav>
@@ -184,9 +173,39 @@
                View All products
                </a>
             </div>
+         </div><hr>
+         <!-- pagination  -->
+         <div>
+            <nav aria-label="Page navigation example">
+               <ul class="pagination">
+                  <li class="page-item">
+                    {% if products.has_previous %}
+                    <a class="page-link" href="?page={{ products.previous_page_number }}">Previous</a>
+                    {% endif %}
+                  </li>
+                  {% for num_page in products.paginator.page_range %}
+                  {% if products.number == num_page %}
+                  <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="?page={{ num_page }}">{{ num_page }}</a>
+                  </li>
+                  {% else %}
+                  <li class="page-item" aria-current="page">
+                    <a class="page-link" href="?page={{ num_page }}">{{ num_page }}</a>
+                  </li>
+                  {% endif %}
+                  {% endfor %}
+                  <li class="page-item">
+                    {% if products.has_next %}
+                    <a class="page-link" href="?page={{ products.next_page_number }}">Next</a>
+                    {% endif %}
+                  </li>
+               </ul>
+            </nav>
          </div>
+         <!-- pagination  -->
       </section>
       <!-- end product section -->
+      
       <!-- footer section -->
       <footer class="footer_section">
          <div class="container">
