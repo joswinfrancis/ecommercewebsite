@@ -3,6 +3,7 @@ from .models import Product
 from category.models import Category
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def index(request):
     products = Product.objects.all().filter(is_available=True)
@@ -12,6 +13,7 @@ def index(request):
     }
     return render(request,'index.html',context)
 
+@login_required(login_url='login')
 def products(request,category_slug=None):
     categories = None
     products = None
@@ -48,6 +50,8 @@ def search_product(request):
         'products': products
     }
     return render(request, 'product.html', context)
+
+@login_required(login_url='login')
 def product_details(request, category_slug, product_slug):
     single_product = get_object_or_404(Product, category__slug=category_slug, slug=product_slug)
     context = {

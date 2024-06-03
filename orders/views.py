@@ -1,14 +1,15 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from products.models import Product
 from .models import Cart,CartItem
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
+@login_required(login_url='login')
 def _cart_id(request):
     cart = request.session.session_key
     if not cart:
         cart = request.session.create()
     return cart
-
+@login_required(login_url='login')
 def add_cart(request,product_id):
     product = Product.objects.get(id=product_id)
     try:
@@ -31,7 +32,7 @@ def add_cart(request,product_id):
         )
         cart_item.save()
     return redirect('cart')
-
+@login_required(login_url='login')
 def remove_cart_item(request,product_id):
     cart = Cart.objects.get(cart_id=_cart_id(request))
     product = get_object_or_404(Product,id=product_id)
@@ -42,7 +43,7 @@ def remove_cart_item(request,product_id):
     else:
         cart_item.delete()
     return redirect('cart')
-
+@login_required(login_url='login')
 def delete_cart_item(request,product_id):
     cart = Cart.objects.get(cart_id=_cart_id(request))
     product = get_object_or_404(Product,id=product_id)
@@ -51,8 +52,11 @@ def delete_cart_item(request,product_id):
     cart_item.delete()
     return redirect('cart')
         
-
+@login_required(login_url='login')
 def cart(request,total=0,quantity=0,cart_items=None):
+    error_message=None
+    tax = 0
+    grand_total = 0
     try:
         cart=Cart.objects.get(cart_id=_cart_id(request))
         cart_items=CartItem.objects.filter(cart=cart,is_active=True)
@@ -61,7 +65,11 @@ def cart(request,total=0,quantity=0,cart_items=None):
             quantity+=cart_item.quantity
         tax = (total*2)/100
         grand_total = total+tax
-    except ObjectNotExist:
+        if grand_total == 0:
+            error_message = 'YOUR CART IS EMPTY'
+        else:
+            grand_total = total+tax
+    except Cart.DoesNotExist:
         pass
 
     context = {
@@ -69,6 +77,7 @@ def cart(request,total=0,quantity=0,cart_items=None):
             'quantity':quantity,
             'cart_items':cart_items,
             'tax':tax,
-            'grand_total':grand_total
+            'grand_total':grand_total,
+            'error_message': error_message
         }
     return render(request,'cart.html',context)
