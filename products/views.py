@@ -4,6 +4,8 @@ from category.models import Category
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from orders.models import CartItem
+from orders.views import _cart_id
 # Create your views here.
 def index(request):
     products = Product.objects.all().filter(is_available=True)
@@ -54,8 +56,10 @@ def search_product(request):
 @login_required(login_url='login')
 def product_details(request, category_slug, product_slug):
     single_product = get_object_or_404(Product, category__slug=category_slug, slug=product_slug)
+    in_carts = CartItem.objects.filter(cart__cart_id=_cart_id(request),product=single_product).exists()
     context = {
         'single_product': single_product,
+        'in_carts':in_carts,
     }
     return render(request, 'product_details.html', context)
 

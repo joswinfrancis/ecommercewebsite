@@ -190,7 +190,13 @@
                {% if single_product.stock <= 0 %}
                <h4 class="text-danger"> Out Of Stock</h4>
                {% else %}
-               <a href="{% url 'add_cart' single_product.id %}" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i> </a>
+                  {% if in_carts %}
+                  <h5 class="text-success" >ITEM ALREADY ADDED</h5>
+                  <a href="{% url 'cart' %}" class="btn  btn-primary"> <span class="text">View Cart </span> <i class="fas fa-shopping-cart"></i></a> OR
+                  <a href="{% url 'add_cart' single_product.id %}" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i> </a>
+                  {% else %}
+                  <a href="{% url 'add_cart' single_product.id %}" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i> </a>
+                  {% endif %}
                {% endif %}
             </div>
         </div>
